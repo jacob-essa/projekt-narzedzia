@@ -1,0 +1,21 @@
+{
+  "name": "projekt-narzedzia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-essa/projekt-narzedzia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jacob-essa/projekt-narzedzia/issues"
+  },
+  "homepage": "https://github.com/jacob-essa/projekt-narzedzia#readme"
+}
