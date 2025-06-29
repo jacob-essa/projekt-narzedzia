@@ -89,6 +89,13 @@ body
     background-color: hsl(252, 27%, 48%) ;
 }
 
+.wide3
+{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    width: 330px;
+}
+
 button{
     width: 100px;
     height: 100px;
