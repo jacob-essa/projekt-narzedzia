@@ -7,7 +7,9 @@
     <script id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" async></script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" async>
+    </script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -15,30 +17,31 @@
         <input id="displayRNP" readonly>
         <input id="display" readonly>
         <div id="keys">
-            <button>:3</button>
-            <button onclick="clearDisplay()" class="clear" >\(C\)</button>    
-            <button onclick="clearInput()" class="clear"> \(\leftarrow\) </button>    
-            <button onclick="evaluateRPN()" class="evaluate">\(=\) </button>    
-            <button onclick="addOperator('!')" class="operator">\(\sqrt[n]{x}\) </button>     
-            <button onclick="addOperator('@')" class="operator">\(\sqrt x\) </button>   
-            <button onclick="addOperator('^')" class="operator">\(x^n\) </button>  
-            <button onclick="addOperator('/')" class="operator">\(\div\) </button>   
-            <button onclick="addDigit('7')">\(7\) </button>    
-            <button onclick="addDigit('8')">\(8\) </button>    
-            <button onclick="addDigit('9')">\(9\) </button>    
-            <button onclick="addOperator('*')" class="operator">\(*\) </button>    
-            <button onclick="addDigit('4')">\(4\) </button>    
-            <button onclick="addDigit('5')">\(5\) </button>    
-            <button onclick="addDigit('6')">\(6\) </button>    
-            <button onclick="addOperator()" class="operator">\(+\) </button>    
-            <button onclick="addDigit('1')">\(1\) </button>    
-            <button onclick="addDigit('2')">\(2\) </button>    
-            <button onclick="addDigit('3')">\(3\) </button>    
-            <button onclick="addOperator('-')" class="operator">\(-\) </button>    
-            <button onclick="addDigit('0')" class="wide3">\(0\) </button>    
-            <button onclick="addDigit('.')">\(.\) </button>    
-              
-            
+            <button class="cute">:3</button>
+            <button data-type="clear" data-value='all' class="clear" >\(C\)</button>    
+            <button data-type="clear" data-value='input' class="clear"> \(\leftarrow\) </button>    
+            <button data-type="evaluation" class="evaluate">\(=\) </button>    
+            <button data-type="operator" data-value='!' class="operator">\(\sqrt[n]{x}\) </button>     
+            <button data-type="operator" data-value='@' class="operator">\(\sqrt x\) </button>   
+            <button data-type="operator" data-value='^' class="operator">\(x^n\) </button>  
+            <button data-type="operator" data-value='/' class="operator">\(\div\) </button>   
+            <button data-type="digit" data-value='7'>\(7\)</button>  
+            <button data-type="digit" data-value='8'>\(8\) </button>    
+            <button data-type="digit" data-value='9'>\(9\) </button>    
+            <button data-type="operator" data-value='*' class="operator">\(*\) </button>    
+            <button data-type="digit" data-value='4'>\(4\) </button>    
+            <button data-type="digit" data-value='5'>\(5\) </button>    
+            <button data-type="digit" data-value='6'>\(6\) </button>    
+            <button data-type="operator" data-value='+' class="operator">\(+\) </button>    
+            <button data-type="digit" data-value='1'>\(1\) </button>    
+            <button data-type="digit" data-value='2'>\(2\) </button>    
+            <button data-type="digit" data-value='3'>\(3\) </button>    
+            <button data-type="operator" data-value='-' class="operator">\(-\) </button>    
+            <button data-type="operator" data-value='.' class="operator">\(.\)</button> 
+            <button data-type="digit" data-value='0'>\(0\) </button> 
+            <button data-type="operator" data-value='-' class="operator">\((\)</button>  
+            <button data-type="operator" data-value='-' class="operator">\()\)</button>    
+                       
         </div>
     </div>
 </body>

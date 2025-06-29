@@ -89,6 +89,13 @@ body
     background-color: hsl(252, 27%, 48%) ;
 }
 
+.cute
+{
+    background-color:hsl(291, 41%, 27%);
+    font-weight: bold;
+    color:#793885 
+}
+
 .wide3
 {
     grid-column-start: 1;
