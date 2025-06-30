@@ -56,3 +56,23 @@ Inputs can be:
 - an evaluation call
     - run the infixToRpn(tokens), then the evaluateRPN(rpnString) function
     
+## infixToRpn
+
+Input is an array of strings
+
+Output will be an array of strings
+
+While there are tokens:
+    - If it is a left bracket
+        - Push to the operatorStack
+    - If it is a right bracket
+        - While operatorStack.top() is not left bracket
+            - equationQueue.push(operatorStack.pop())
+        - Remove the left bracket (one more pop)
+    - If it is an operator (newOperator)
+        - While precedence[newOperator] < precedence[operatorStack.top()]
+            - equationQueue.push(operatorStack.pop())
+    - If it is a number
+        - Push to the equation queue
+
+Return equation queue (as it is an array)

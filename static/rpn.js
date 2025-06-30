@@ -1,5 +1,3 @@
-const numberStack = [];
-const operatorStack = [];
 let number = '';
 let tokens = [];
 let bracketOpen = 0;
@@ -16,6 +14,8 @@ precedence.set('/', 3);
 precedence.set('^', 4);
 precedence.set('!', 4);
 precedence.set('@', 4); 
+precedence.set('(', 1); 
+
 
 function UpdateDisplay() 
 {
@@ -46,14 +46,22 @@ function UpdateDisplay()
 
 function addDigit(digit)
 {
-    if(number === '0')
+    if(number.length > 0 && number.at(-1) === '.')
+    {
+        if(digit === '.')
+            return;
+        else number += digit;
+    }
+    else if(number === '0')
     {
         if(digit === '0')
             return;
         else
             number = digit;
     }
+    
     else number += digit;
+
     UpdateDisplay();
     return;
 }
@@ -96,12 +104,6 @@ function clearDisplay(scope)
         return;
     }
     let last = tokens.at(-1);
-    if(precedence.has(last))
-    {
-        tokens.pop();
-        UpdateDisplay();
-        return;
-    }
     if(last === '(')
     {
         bracketOpen -= 1;
@@ -113,6 +115,12 @@ function clearDisplay(scope)
     {
         bracketOpen += 1;
         tokens.pop()
+        UpdateDisplay();
+        return;
+    }
+    if(precedence.has(last))
+    {
+        tokens.pop();
         UpdateDisplay();
         return;
     }
@@ -148,6 +156,56 @@ function addBracket(bracket)
 }
 
 
+
+function infixToRpn(tokens)
+{
+    let equationQueue = [];
+    let operatorStack = [];
+    tokens.forEach(token => 
+    {
+        if(!isNaN(parseFloat(token)))
+        {
+            equationQueue.push(token);
+        }
+        else if(token === '(')
+        {
+            operatorStack.push(token);
+        }
+        else if (precedence.has(token)) 
+        {
+            if(operatorStack.length == 0)
+                operatorStack.push(token);
+            else
+            {    
+                while(precedence.get(token) <= precedence.get(operatorStack.at(-1)))
+                {
+                    equationQueue.push(operatorStack.pop());
+                }
+                operatorStack.push(token);
+            }
+        }
+        else if (token === ')')
+        {
+            // We know that if '(' has been input, that the stack cannot be empty
+            while(operatorStack.at(-1) !== '(')
+            {
+                equationQueue.push(operatorStack.pop());
+            }
+            operatorStack.pop();
+        }
+    });
+    while(operatorStack.length > 0)
+        equationQueue.push(operatorStack.pop());
+    return equationQueue;
+}
+
+function evaluateEquation(tokens)
+{
+    if(number !== '')
+        tokens.push(number);
+    console.log(infixToRpn(tokens));
+}
+
 document.addEventListener('DOMContentLoaded', function()
 {
     const keys = document.getElementById('keys');
@@ -164,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function()
             if(type === 'clear') clearDisplay(value);
             else if (type === 'operator') addOperator(value);
             else if (type === 'digit') addDigit(value);
-            else if (type === 'evaluation') evaluateEquation();
+            else if (type === 'evaluation') evaluateEquation(tokens);
             else if (type === 'bracket') addBracket(value);
 
             console.log(`Button pressed: ${type} ${value}`);
