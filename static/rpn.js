@@ -1,5 +1,3 @@
-// const { Deque } = require('@datastructures-js/deque')
-
 const numberStack = [];
 const operatorStack = [];
 let number = '';
@@ -46,7 +44,6 @@ function UpdateDisplay()
 
 }
 
-
 function addDigit(digit)
 {
     if(number === '0')
@@ -60,7 +57,6 @@ function addDigit(digit)
     UpdateDisplay();
     return;
 }
-
 function addOperator(operator)
 {
     if(number !== '')
@@ -84,7 +80,6 @@ function addOperator(operator)
     UpdateDisplay();
     return;
 }
-
 function clearDisplay(scope)
 {
     if(scope === 'all')
@@ -128,7 +123,6 @@ function clearDisplay(scope)
     return;
        
 }
-
 function addBracket(bracket)
 {
     if(number !== '')
