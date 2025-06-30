@@ -7,12 +7,17 @@
     <script id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
+
     <script 
         src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" async>
     </script>
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <script 
+        src="rpn.js">
+    </script>
     <div id="calculator">
         <input id="displayRNP" readonly>
         <input id="display" readonly>
@@ -39,8 +44,8 @@
             <button data-type="operator" data-value='-' class="operator">\(-\) </button>    
             <button data-type="operator" data-value='.' class="operator">\(.\)</button> 
             <button data-type="digit" data-value='0'>\(0\) </button> 
-            <button data-type="operator" data-value='-' class="operator">\((\)</button>  
-            <button data-type="operator" data-value='-' class="operator">\()\)</button>    
+            <button data-type="bracket" data-value='(' class="operator">\((\)</button>  
+            <button data-type="bracket" data-value=')' class="operator">\()\)</button>    
                        
         </div>
     </div>

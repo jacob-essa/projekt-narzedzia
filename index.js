@@ -13,6 +13,7 @@ const port = 4200
 // Add this line to serve static files
 app.use(express.static(path.join(__dirname, 'static')));
 
+
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/static/template.html'));
 });
@@ -20,3 +21,4 @@ app.get('/', function(req, res) {
 server.listen(port, hostname, () => {
     console.log(`Listening on port ${port}`);
 });
+

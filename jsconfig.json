@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@backend/*": ["./backend/*"],
+      "@static/*": ["./static/*"],
+      "@css/*": ["./static/css/*"]
+    }
+  },
+  "include": [
+    "*.js",
+    "backend/**/*.js",
+    "static/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "package-lock.json"
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "include": [
+      "node",
+      "express",
+      "socket.io"
+    ]
+  }
+}
