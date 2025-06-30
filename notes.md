@@ -75,4 +75,23 @@ While there are tokens:
     - If it is a number
         - Push to the equation queue
 
+Pop all of remaining operators to the queue
+
 Return equation queue (as it is an array)
+
+## evaluateEquation
+
+Input is an array of strings in Reverse Polish Notation
+
+Output will be an floating point number
+
+Check if there is a number pending
+Check if there is a loose operator
+
+While there are elements
+    - If element is a number
+        - Push onto number stack
+    - If element is a operator
+        - Switch(operator)
+            - push the result onto stack
+            

@@ -7,14 +7,14 @@ const precedence = new Map;
 
 console.log('Script loaded');
 
-precedence.set('+', 2);
-precedence.set('-', 2);
-precedence.set('*', 3);
-precedence.set('/', 3);
-precedence.set('^', 4);
-precedence.set('!', 4);
-precedence.set('@', 4); 
-precedence.set('(', 1); 
+precedence.set('+', {value: 2, leftAssoc: true});
+precedence.set('-', {value: 2, leftAssoc: true});
+precedence.set('*', {value: 3, leftAssoc: true});
+precedence.set('/', {value: 3, leftAssoc: true});
+precedence.set('^', {value: 4, leftAssoc: false});
+precedence.set('!', {value: 4, leftAssoc: false});
+precedence.set('@', {value: 4, leftAssoc: false}); 
+precedence.set('(', {value: 1, leftAssoc: true}); 
 
 
 function UpdateDisplay() 
@@ -46,22 +46,24 @@ function UpdateDisplay()
 
 function addDigit(digit)
 {
-    if(number.length > 0 && number.at(-1) === '.')
+    if(number.includes('.') && digit === '.') return;
+    if(number === '' && digit === '.')
     {
-        if(digit === '.')
-            return;
-        else number += digit;
+        number = '0.';
+        UpdateDisplay();
+        return;
     }
-    else if(number === '0')
+    if(number === '0')
     {
         if(digit === '0')
+        {
             return;
-        else
-            number = digit;
+        }
+        number = (digit === '0') ? 0 : (digit === '.') ? '0.' : digit;
+        UpdateDisplay();
+        return;
     }
-    
-    else number += digit;
-
+    number += digit;
     UpdateDisplay();
     return;
 }
@@ -103,6 +105,8 @@ function clearDisplay(scope)
         UpdateDisplay();
         return;
     }
+    if(tokens.length == 0)
+        return;
     let last = tokens.at(-1);
     if(last === '(')
     {
@@ -155,8 +159,6 @@ function addBracket(bracket)
 
 }
 
-
-
 function infixToRpn(tokens)
 {
     let equationQueue = [];
@@ -172,17 +174,18 @@ function infixToRpn(tokens)
             operatorStack.push(token);
         }
         else if (precedence.has(token)) 
-        {
-            if(operatorStack.length == 0)
-                operatorStack.push(token);
-            else
-            {    
-                while(precedence.get(token) <= precedence.get(operatorStack.at(-1)))
-                {
-                    equationQueue.push(operatorStack.pop());
-                }
-                operatorStack.push(token);
+        {  
+            while
+            (
+                operatorStack.length > 0  && 
+                precedence.has(operatorStack.at(-1)) &&
+                (((precedence.get(token).value <= precedence.get(operatorStack.at(-1)).value) && precedence.get(token).leftAssoc) || 
+                ((precedence.get(token).value < precedence.get(operatorStack.at(-1)).value) && !precedence.get(token).leftAssoc))
+            )
+            {
+                equationQueue.push(operatorStack.pop());
             }
+            operatorStack.push(token);
         }
         else if (token === ')')
         {
@@ -199,11 +202,83 @@ function infixToRpn(tokens)
     return equationQueue;
 }
 
-function evaluateEquation(tokens)
+function evaluateEquation(equation)
 {
     if(number !== '')
+    {
         tokens.push(number);
-    console.log(infixToRpn(tokens));
+        number = '';
+    }
+    if(precedence.has(tokens.at(-1)) && tokens.at(-1) !== '@') 
+    {
+        tokens.pop();
+        UpdateDisplay();
+    }
+    
+    let equationRpn = infixToRpn(equation);
+
+    tokens = [];
+
+    let numberStack = [];
+    let result = 0;
+    let element;
+    let a, b;
+    while(equationRpn.length > 0)
+    {
+        element = equationRpn.shift();
+        if(!isNaN(parseFloat(element)))
+        {
+            numberStack.push(parseFloat(element));
+        }
+        else
+        {
+            switch(element)
+            {
+                case '+':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b + a);
+                    break;
+
+                case '-':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b - a);
+                    break;
+
+                case '*':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b * a);
+                    break;
+
+                case '/':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b / a);
+                    break;
+
+                case '^':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b ** a);
+                    break;
+                
+                case '@':
+                    a = numberStack.pop();
+                    numberStack.push(a ** 0.5);
+                    break;
+                
+                case '!':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b ** (1 / a));
+                    break;
+            }
+        }
+    }
+    number = numberStack.pop();
+    UpdateDisplay();
 }
 
 document.addEventListener('DOMContentLoaded', function()
@@ -229,34 +304,3 @@ document.addEventListener('DOMContentLoaded', function()
         }
     })
 });
-
-
-
-
-
-// function addOperator(operator)
-// {
-//     equation.pushFront(number);
-//     number = '';
-//     if(operator == '(')
-//     {
-//         operatorStack.push(operator);
-//         return;
-//     }
-//     else if(operator == ')')
-//     {
-//         while (operatorStack.at(-1) != '(')
-//         {
-//             equation.pushBack(operatorStack.pop());
-//         }
-//         operatorStack.pop();
-//         return;
-//     }
-//     while (precedence[operator] < precedence[operatorStack.at(-1)])
-//     {
-//         equation.pushBack(operatorStack.pop())
-//     }
-//     operatorStack.push(operator);
-//     return;
-
-// }
