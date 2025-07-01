@@ -16,12 +16,25 @@ precedence.set('!', {value: 4, leftAssoc: false});
 precedence.set('@', {value: 4, leftAssoc: false}); 
 precedence.set('(', {value: 1, leftAssoc: true}); 
 
+const coolMath = 
+{
+    '/': '÷',
+    '*': '×',
+    '!': 'ⁿ√x',
+    '@': '√',
+    '^': '**'
+}
+
+
 
 function UpdateDisplay() 
 {
     const mainDisplay = document.getElementById('display');
+    const RpnDisplay = document.getElementById('displayRPN');
 
     let displayText = '';
+    let displayTextRpn = '';
+    
 
     if(tokens.length > 0)
     {
@@ -31,16 +44,30 @@ function UpdateDisplay()
     if(number !== '')
     {
         if (displayText !== '')
+        {
             displayText += ' ' + number;
+            tokens.push(number);
+            displayTextRpn = infixToRpn(tokens).join(' ')
+            displayTextRpn.replace()
+            tokens.pop();
+        }
         else
+        {
             displayText = number;
+            displayTextRpn = number;
+        }
     }
 
     if (displayText === '')
+    {
         displayText = '0';
+        displayTextRpn = '0';
+    }
 
     mainDisplay.value = displayText;
+    RpnDisplay.value =  displayTextRpn.replace(/[\/\*!@\^]/g, (match) => coolMath[match]);
     console.log(tokens);
+
 
 }
 
@@ -129,8 +156,8 @@ function clearDisplay(scope)
         return;
     }
     number = last;
-    number = number.slice(0, -1)
     tokens.pop();
+    number = number.slice(0, -1)
     UpdateDisplay();
     return;
        
@@ -145,6 +172,8 @@ function addBracket(bracket)
     if(bracket === '(')
     {
         bracketOpen += 1;
+        if(!precedence.has(tokens.at(-1)) && tokens.length > 0)
+            tokens.push('*');
         tokens.push(bracket);
 
     }
@@ -218,6 +247,7 @@ function evaluateEquation(equation)
     let equationRpn = infixToRpn(equation);
 
     tokens = [];
+    UpdateDisplay();
 
     let numberStack = [];
     let result = 0;
@@ -285,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function()
 {
     const keys = document.getElementById('keys');
     
-
+    UpdateDisplay();
     keys.addEventListener('click', function(event)
     {
         const button = event.target.closest('button');
@@ -299,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function()
             else if (type === 'digit') addDigit(value);
             else if (type === 'evaluation') evaluateEquation(tokens);
             else if (type === 'bracket') addBracket(value);
+            else if (type === 'cute') UpdateDisplay();
 
             console.log(`Button pressed: ${type} ${value}`);
         }

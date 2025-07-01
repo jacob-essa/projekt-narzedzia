@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'MathJax'; /*a name to be used later*/
+    src: url(MathJax_Main-Regular.otf);
+}
+
 #calculator
 {
     background-color:hsl(227, 13%, 50%) ;
@@ -21,16 +26,22 @@ body
 
 
 
-#displayRNP
+#displayRPN
 {
     width: 500px;
     height: 60px;
     background-color: hsl(227, 13%, 55%);
     border: #565878;
     border-width: 20px;
-    text-align: left;
+    overflow: scroll;
+    color:hsl(227, 13%, 75%);
+    font-size: 2rem;
     box-sizing: border-box;
-    padding: 10px 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: MathJax;
 }
 
 #display
@@ -109,6 +120,19 @@ body
     background-color:hsl(291, 41%, 27%);
     font-weight: bold;
     color:#793885 
+}
+.cute:hover
+{
+    background-color:hsl(291, 41%, 37%);
+    font-weight: bold;
+    color:hsl(291, 41%, 47%) 
+}
+
+.cute:active
+{
+    background-color:hsl(291, 41%, 47%);
+    font-weight: bold;
+    color:hsl(291, 41%, 57%) 
 }
 
 .wide3

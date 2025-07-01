@@ -94,4 +94,50 @@ While there are elements
     - If element is a operator
         - Switch(operator)
             - push the result onto stack
-            
+
+
+switch(element)
+            {
+                case '+':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b + a);
+                    break;
+
+                case '-':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b - a);
+                    break;
+
+                case '*':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b * a);
+                    break;
+
+                case '/':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b / a);
+                    break;
+
+                case '^':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b ** a);
+                    break;
+                
+                case '!':
+                    a = numberStack.pop();
+                    numberStack.push(a ** 0.5);
+                    break;
+                
+                case '@':
+                    a = numberStack.pop();
+                    b = numberStack.pop();
+                    numberStack.push(b ** (1 / a));
+                    break;
+
+                
+            }
