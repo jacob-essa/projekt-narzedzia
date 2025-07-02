@@ -108,6 +108,8 @@ function addOperator(operator)
         {
             if(precedence.has(tokens.at(-1)))
             {
+                if(tokens.at(-1) === '(' && precedence.has(tokens.at(-1)))
+                    return;
                 tokens.pop();
             }
             tokens.push(operator);
