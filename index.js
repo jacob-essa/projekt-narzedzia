@@ -6,7 +6,7 @@ const app = express();
 const server = createServer(app);
 
 
-const hostname = "localhost"
+const hostname = "0.0.0.0"
 const port = 4200
 
 // Add this line to serve static files
