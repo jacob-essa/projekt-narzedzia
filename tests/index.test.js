@@ -54,12 +54,12 @@ describe('Express App', () => {
       const response = await request(app)
         .get('/template.html')
         .expect(200);
-      expect(response.headers['const-type']).toMatch(/html/);
+      expect(response.headers['content-type']).toMatch(/html/);
     })
   });
 
   describe('404 handling', () => {
-    it('should return 404 for non-expisten routes', async () => {
+    it('should return 404 for non-existent routes', async () => {
       await request(app)
         .get('/non-existen-route')
         .expect(404);
