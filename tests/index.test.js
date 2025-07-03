@@ -1,7 +1,11 @@
-const e = require('express');
+const path = require('path');
 const express = require('express');
 
-const { createServer, request } = require('http');
+const { createServer } = require('http');
+const request = require('supertest');
+
+const hostname = localhost;
+const port = 0;
 
 function createApp()
 {

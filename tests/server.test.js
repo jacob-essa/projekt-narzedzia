@@ -37,10 +37,18 @@ describe('Server Configuration', () => {
     
     server.on('error', (error) => {
       expect(error).toBeDefined();
+      expect.(error.code).toBe('EADDRINUSE')
       done();
     });
     
     // Try to listen on an invalid port to trigger error
-    server.listen(-1);
+    server.listen(0, () => {
+      const port = server.address().port;
+      server.close(() => {
+        const conflictServer = createServer(express());
+        conflictServer.listen(port);
+        server.listen(port);
+      });
+    });
   });
 });
