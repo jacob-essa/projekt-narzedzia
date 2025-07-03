@@ -4,7 +4,7 @@ const express = require('express');
 const { createServer } = require('http');
 const request = require('supertest');
 
-const hostname = localhost;
+const hostname = 'localhost';
 const port = 0;
 
 function createApp()
