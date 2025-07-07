@@ -3,6 +3,12 @@
     src: url(MathJax_Main-Regular.otf);
 }
 
+#title-calc
+{
+    text-align: center;
+    color: antiquewhite;
+}
+
 #calculator
 {
     background-color:hsl(227, 13%, 50%) ;
